@@ -1,0 +1,26 @@
+# Roots
+node_modules/
+.env
+.env.*
+.DS_Store
+
+# Server
+server/node_modules/
+server/.env
+server/dist/
+server/build/
+
+# Client
+client/node_modules/
+client/.env
+client/.next/
+client/out/
+client/build/
+client/.next.tar
+client/*.log
+client/*.err
+client/*.tsbuildinfo
+
+# Logs
+*.log
+*.err

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .content {
+            padding: 30px;
+        }
+        .order-details {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #6366f1;
+        }
+        .order-details h3 {
+            margin-top: 0;
+            color: #4b5563;
+        }
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+        .item-label {
+            font-weight: 600;
+            color: #6b7280;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #9ca3af;
+            background: #f9fafb;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #6366f1;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Order Confirmed!</h1>
+            <p>Thank you for your purchase</p>
+        </div>
+        <div class="content">
+            <p>Hello,</p>
+            <p>We're excited to let you know that your order has been successfully processed. You now have full access to your new learning material.</p>
+            
+            <div class="order-details">
+                <h3>Order Summary</h3>
+                <div class="item-row">
+                    <span class="item-label">Order ID:</span>
+                    <span>#<%= order._id %></span>
+                </div>
+                <div class="item-row">
+                    <span class="item-label">Item:</span>
+                    <span><%= order.name %></span>
+                </div>
+                <div class="item-row">
+                    <span class="item-label">Price:</span>
+                    <span><%= order.price === 0 ? 'Free' : '৳' + order.price %></span>
+                </div>
+                <div class="item-row" style="border-bottom: none;">
+                    <span class="item-label">Date:</span>
+                    <span><%= order.date %></span>
+                </div>
+            </div>
+
+            <p>You can start learning right away by clicking the button below:</p>
+            <div style="text-align: center;">
+                <a href="<%= process.env.ORIGIN %>" class="btn">Go to Dashboard</a>
+            </div>
+            
+            <p>If you have any questions, feel free to contact our support team.</p>
+            <p>Best regards,<br>The LMS Team</p>
+        </div>
+        <div class="footer">
+            &copy; <%= new Date().getFullYear() %> LMS Platform. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

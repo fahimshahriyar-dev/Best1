@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Status Update</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: <%= data.status === 'approved' ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' %>;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .content {
+            padding: 30px;
+        }
+        .status-box {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid <%= data.status === 'approved' ? '#10b981' : '#ef4444' %>;
+        }
+        .status-box h3 {
+            margin-top: 0;
+            color: #4b5563;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #9ca3af;
+            background: #f9fafb;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #6366f1;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .note {
+            font-style: italic;
+            color: #6b7280;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Application <%= data.status.charAt(0).toUpperCase() + data.status.slice(1) %></h1>
+            <p>Update regarding your <%= data.type %> application</p>
+        </div>
+        <div class="content">
+            <p>Hello <%= data.name %>,</p>
+            
+            <div class="status-box">
+                <h3>Status: <%= data.status.toUpperCase() %></h3>
+                <p>
+                    <%= data.status === 'approved' 
+                        ? `Congratulations! Your application to become a ${data.type} has been approved. You now have access to ${data.type} features on our platform.` 
+                        : `We regret to inform you that your application to become a ${data.type} has been rejected at this time.` 
+                    %>
+                </p>
+                <% if (data.adminNote) { %>
+                    <div class="note">
+                        <strong>Admin Note:</strong><br>
+                        <%= data.adminNote %>
+                    </div>
+                <% } %>
+            </div>
+
+            <% if (data.status === 'approved') { %>
+                <p>You can now log in to your dashboard and start exploring your new tools!</p>
+                <div style="text-align: center;">
+                    <a href="<%= process.env.ORIGIN %>/admin" class="btn">Go to Admin Dashboard</a>
+                </div>
+            <% } else { %>
+                <p>If you have any questions or would like to re-apply in the future, please feel free to reach out to our support team.</p>
+            <% } %>
+            
+            <p>Best regards,<br>The LMS Team</p>
+        </div>
+        <div class="footer">
+            &copy; <%= new Date().getFullYear() %> LMS Platform. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
