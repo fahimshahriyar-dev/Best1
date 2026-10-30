@@ -50,7 +50,7 @@ export const sendToken = (user: IUser, statusCode: number, res: Response) => {
     (userData as any).hasPassword = hasPassword;
 
     // upload session to redis
-    redis.set(user._id as string, JSON.stringify(userData) as any);
+    redis.set(user._id.toString(), JSON.stringify(userData) as any);
 
     // parse environment variables to integrate with fallback values
     const accessTokenExpire = parseInt(

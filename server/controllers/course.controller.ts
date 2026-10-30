@@ -241,7 +241,7 @@ export const addAnswer = catchAsyncError(async(req: Request, res: Response, next
         }
 
         // add this qs in course content
-        question.questionReplies.push(newAnswer);
+        question.questionReplies!.push(newAnswer);
 
         // save updated course
         await course?.save();
@@ -454,7 +454,7 @@ export const deleteAnswer = catchAsyncError(async(req: Request, res: Response, n
             return next(new ErrorHandler("Invalid answer id", 400));
         };
 
-        const reply = question.questionReplies[answerIndex];
+        const reply = question.questionReplies![answerIndex];
         const isOwner = reply.user._id.toString() === req.user?._id.toString();
         const isStaff = req.user?.role === "superadmin" || req.user?.role === "admin" || req.user?.role === "moderator";
 
@@ -462,7 +462,7 @@ export const deleteAnswer = catchAsyncError(async(req: Request, res: Response, n
             return next(new ErrorHandler("You are not authorized to delete this answer", 403));
         };
 
-        question.questionReplies.splice(answerIndex, 1);
+        question.questionReplies!.splice(answerIndex, 1);
 
         await course?.save();
 
@@ -737,7 +737,7 @@ export const sendCourseMessage = catchAsyncError(async(req: Request, res: Respon
             return next(new ErrorHandler("Message content is required", 400));
         }
 
-        course.messages.push(newMessage);
+        course.messages!.push(newMessage);
         await course.save();
 
         await redis.del(courseId);
@@ -768,7 +768,7 @@ export const deleteCourseMessage = catchAsyncError(async(req: Request, res: Resp
             return next(new ErrorHandler("Course not found", 404));
         }
 
-        const msg = course.messages.find((msg: any) => msg._id.toString() === messageId);
+        const msg = course.messages!.find((msg: any) => msg._id.toString() === messageId);
         if (!msg) {
             return next(new ErrorHandler("Message not found", 404));
         }
@@ -776,7 +776,7 @@ export const deleteCourseMessage = catchAsyncError(async(req: Request, res: Resp
             return next(new ErrorHandler("You can only delete your own messages", 403));
         }
 
-        course.messages = course.messages.filter((m: any) => m._id.toString() !== messageId);
+        course.messages = course.messages!.filter((m: any) => m._id.toString() !== messageId);
         await course.save();
 
         await redis.del(id);
@@ -807,7 +807,7 @@ export const editCourseMessage = catchAsyncError(async(req: Request, res: Respon
             return next(new ErrorHandler("Course not found", 404));
         }
 
-        const message = course.messages.find((msg: any) => msg._id.toString() === messageId);
+        const message = course.messages!.find((msg: any) => msg._id.toString() === messageId);
         if(!message) {
             return next(new ErrorHandler("Message not found", 404));
         }

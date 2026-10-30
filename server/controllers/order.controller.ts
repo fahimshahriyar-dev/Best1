@@ -73,7 +73,7 @@ export const createOrder = catchAsyncError(async (req: Request, res: Response, n
                 subCategories: course?.subCategory || "Recorded"
             });
             if (course.subCategory === "Live") {
-                course.enrolled.push(user?._id);
+                course.enrolled!.push(user!._id);
             }
             course.purchased ? course.purchased += 1 : course.purchased = 1;
             await course.save();
@@ -122,7 +122,7 @@ export const createOrder = catchAsyncError(async (req: Request, res: Response, n
             return next(new ErrorHandler(error.message, 500));
         }
 
-        await redis.set(req.user?._id, JSON.stringify(user));
+        await redis.set(req.user!._id.toString(), JSON.stringify(user));
         await user?.save();
 
         await notificationModel.create({

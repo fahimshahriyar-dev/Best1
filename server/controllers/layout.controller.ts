@@ -102,7 +102,7 @@ export const editLayout = catchAsyncError(async (req: Request, res: Response, ne
                 return res.status(201).json({ success: true, message: "Banner created successfully!", bannerData });
             }
 
-            let uploadedImage = bannerData.banner.image;
+            let uploadedImage = bannerData.banner!.image;
             if (!image.startsWith("https")) {
                 const uploaded = await cloudinary.v2.uploader.upload(image, { folder: "layout" });
                 uploadedImage = { public_id: uploaded.public_id, url: uploaded.secure_url };

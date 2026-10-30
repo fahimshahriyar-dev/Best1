@@ -217,7 +217,7 @@ export const logoutUser = catchAsyncError(
     try {
       res.clearCookie("access_token");
       res.clearCookie("refresh_token");
-      const userId = req.user?._id || "";
+      const userId = req.user?._id?.toString() || "";
 
       redis.del(userId);
       res.status(200).json({
@@ -499,9 +499,9 @@ export const updatePassword = catchAsyncError(
       }
 
       // update password
-      user.password = newPassword;
+      user!.password = newPassword;
 
-      await user.save();
+      await user!.save();
 
       const userId = req.user?._id?.toString();
       if (userId) {
@@ -575,7 +575,7 @@ export const updateProfilePicture = catchAsyncError(
       await user.save();
 
       // Update Redis cache
-      await redis.set(userId.toString(), JSON.stringify(user));
+      await redis.set(userId!.toString(), JSON.stringify(user));
 
       res.status(200).json({
         success: true,
@@ -685,7 +685,7 @@ export const updateUserRole = catchAsyncError(
         }
       }
 
-      await updateUserRoleService(res, user._id, role);
+      await updateUserRoleService(res, user._id.toString(), role);
 
       // Socket.IO real-time update
       const io = getIO();

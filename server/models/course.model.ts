@@ -4,6 +4,7 @@ import { IUser } from "./user.model";
 interface IComment extends Document {
     user: IUser;
     question: string;
+    answer?: string;
     questionReplies?: IComment[];
 }
 
@@ -47,6 +48,7 @@ interface IMessage extends Document {
 
 interface ICourse extends Document {
     name: string;
+    title?: string;
     description?: string;
     categories: string;
     price: number;
@@ -65,13 +67,13 @@ interface ICourse extends Document {
     daysOfWeek?: string[];
     maxStudents?: number;
     teachers?: string[];
-    enrolled?: string[];
+    enrolled?: mongoose.Types.ObjectId[];
     messages?: IMessage[];
     benefits: { title: string }[];
     prerequisites: { title: string }[];
     reviews: IReview[];
     courseData: ICourseData[];
-    ratings?: string;
+    ratings?: number;
     purchased?: number;
     status?: string;
 }

@@ -309,13 +309,13 @@ export const addEbookReview = catchAsyncError(async (req: Request, res: Response
         const { review, rating } = req.body as IAddReviewData;
 
         const reviewData: any = {
-            user: user._id,
+            user: user!._id,
             rating,
             comment: review,
         };
 
         const isReviewExists = ebook?.reviews.find(
-            (rev: any) => rev.user.toString() === user._id.toString()
+            (rev: any) => rev.user.toString() === user!._id.toString()
         );
 
         if (isReviewExists) {
