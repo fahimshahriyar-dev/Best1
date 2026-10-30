@@ -127,18 +127,20 @@ const AllTrainings = () => {
     ];
 
     return (
-        <div className="bg-background-Theme pt-20 sm:pt-24 px-4 sm:px-8 pb-6">
-            <AdminPageHeader
-                icon={<MdOutlineSchool size={20} />}
-                title="All Trainings"
-                subtitle="Manage all trainings available on the platform"
-            />
+        <div className="bg-background-Theme pt-16 sm:pt-20 lg:pt-24 px-3 sm:px-6 lg:px-8 pb-3 sm:pb-5 h-screen flex flex-col overflow-hidden">
+            <div className="flex-shrink-0">
+                <AdminPageHeader
+                    icon={<MdOutlineSchool size={20} />}
+                    title="All Trainings"
+                    subtitle="Manage all trainings available on the platform"
+                />
+            </div>
 
             {isLoading ? (
                 <Loader />
             ) : (
-                <div className="max-w-[1600px] mx-auto">
-                    <div className="bg-background-Card_1 rounded-2xl border border-[#ffffff1a] shadow-xl overflow-hidden max-h-[calc(100vh-210px)] flex flex-col">
+                <div className="max-w-[1600px] w-full mx-auto flex-1 flex flex-col min-h-0 overflow-hidden">
+                    <div className="bg-background-Card_1 rounded-2xl border border-[#ffffff1a] shadow-xl overflow-hidden flex-1 flex flex-col min-h-0">
                             <DataTableBox
                                 data={data?.trainings || []}
                                 columns={columns}

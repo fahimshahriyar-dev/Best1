@@ -229,19 +229,21 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
     };
 
     return (
-        <div className="bg-background-Theme pt-20 sm:pt-24 px-4 sm:px-8 pb-6">
-            <AdminPageHeader
-                icon={isTeam ? <RiGroupFill size={20} /> : <MdGroups2 size={20} />}
-                title={isTeam ? "Manage Team" : "All Users"}
-                subtitle={isTeam ? "Manage team members and their roles" : "View and manage all registered users"}
-            />
+        <div className="bg-background-Theme pt-16 sm:pt-20 lg:pt-24 px-3 sm:px-6 lg:px-8 pb-3 sm:pb-5 h-screen flex flex-col overflow-hidden">
+            <div className="flex-shrink-0">
+                <AdminPageHeader
+                    icon={isTeam ? <RiGroupFill size={20} /> : <MdGroups2 size={20} />}
+                    title={isTeam ? "Manage Team" : "All Users"}
+                    subtitle={isTeam ? "Manage team members and their roles" : "View and manage all registered users"}
+                />
+            </div>
             {isLoading ? (
                 <Loader />
             ) : (
-                <div className="max-w-[1600px] mx-auto">
+                <div className="max-w-[1600px] w-full mx-auto flex-1 flex flex-col min-h-0 overflow-hidden">
 
                     {/* Table Section */}
-                    <div className="bg-background-Card_1 rounded-2xl border border-[#ffffff1a] shadow-xl overflow-hidden max-h-[calc(100vh-210px)] flex flex-col">
+                    <div className="bg-background-Card_1 rounded-2xl border border-[#ffffff1a] shadow-xl overflow-hidden flex-1 flex flex-col min-h-0">
                         <DataTableBox
                                 data={teamMembers}
                                 columns={filteredColumns}

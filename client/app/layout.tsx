@@ -33,6 +33,19 @@ const archivoBlack = Archivo_Black({
   variable: "--font-ArchivoBlack",
 });
 
+const themeInitScript = `
+(function () {
+  try {
+    var match = document.cookie.match(/(?:^|;\\s*)theme=(light|dark)(?:;|$)/);
+    var theme = match
+      ? match[1]
+      : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {}
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -41,6 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} ${josefin.variable} ${newsreader.variable} ${archivoBlack.variable} bg-background-Theme`}>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <Providers>
           <SessionProvider>
             <Custom>

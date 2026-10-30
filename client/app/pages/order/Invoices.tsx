@@ -166,18 +166,20 @@ const Invoices: FC<Props> = ({ isDashboard }) => {
     }, [orderData, isDashboard]);
 
     return (
-        <div className={!isDashboard ? "bg-background-Theme pt-20 sm:pt-24 px-4 sm:px-8 pb-6" : "w-full"}>
+        <div className={!isDashboard ? "bg-background-Theme pt-16 sm:pt-20 lg:pt-24 px-3 sm:px-6 lg:px-8 pb-3 sm:pb-5 h-screen flex flex-col overflow-hidden" : "w-full"}>
             {!isDashboard && (
-                <AdminPageHeader
-                    icon={<CgNotes size={20} />}
-                    title="Invoices"
-                    subtitle="View and manage all purchase invoices"
-                />
+                <div className="flex-shrink-0">
+                    <AdminPageHeader
+                        icon={<CgNotes size={20} />}
+                        title="Invoices"
+                        subtitle="View and manage all purchase invoices"
+                    />
+                </div>
             )}
             {isLoading || !orderData ? (
                 <Loader />
             ) : (
-                <div className={`${!isDashboard ? "max-w-[1600px] mx-auto" : ""}`}>
+                <div className={`${!isDashboard ? "max-w-[1600px] w-full mx-auto flex-1 flex flex-col min-h-0 overflow-hidden" : ""}`}>
                     {isDashboard ? (
                         <div className="flex flex-col gap-4">
                             {dashboardOrders.map((item: any, index: number) => (
@@ -212,7 +214,7 @@ const Invoices: FC<Props> = ({ isDashboard }) => {
                         </div>
                     ) : (
                         /* Table Section for Full Page */
-                        <div className="bg-background-Card_1 rounded-2xl border border-[#ffffff1a] shadow-xl overflow-hidden max-h-[calc(100vh-210px)] flex flex-col">
+                        <div className="bg-background-Card_1 rounded-2xl border border-[#ffffff1a] shadow-xl overflow-hidden flex-1 flex flex-col min-h-0">
                                 <DataTableBox
                                     data={dashboardOrders}
                                     columns={columns}

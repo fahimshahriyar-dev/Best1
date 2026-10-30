@@ -7,6 +7,14 @@ body {
     @apply bg-background-Theme;
 }
 
+/* Disable transitions for one frame during theme switches so every surface changes together */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+    transition: none !important;
+}
+
 /* switch theme */
 @layer base {
     /* light mode */
@@ -52,9 +60,9 @@ body {
         color-scheme: light;
     }
 
-    /* dark mode */
+    /* dark mode (only when no explicit theme has been selected yet) */
     @media (prefers-color-scheme: dark) {
-        :root {
+        :root:not([data-theme]) {
             /* text */
             --color_basic: 212 212 212;
             --color-text_2: 255 255 255;
@@ -447,7 +455,7 @@ section {
 /* Theme Switcher */
 @layer themeSwitcherAnimation {
     .dark-mode-animation {
-        position: absolute;
+        position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0);
@@ -455,13 +463,14 @@ section {
         height: 0;
         border-radius: 50%;
         background-color: transparent;
+        pointer-events: none;
         transition: transform 1000ms ease-in-out, width 1000ms ease-in-out,
             height 1000ms ease-in-out;
-        z-index: 100;
+        z-index: 9998;
     }
     .dark-mode-animation.active {
         transform: translate(-50%, -50%) scale(1);
-        width: 220vw;
-        height: 220vw;
+        width: 250vmax;
+        height: 250vmax;
     }
 }
